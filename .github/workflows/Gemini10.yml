@@ -24,7 +24,6 @@ jobs:
     - name: Compile Java
       run: |
         cd src 
-        javac -d . *.java
+        javac -d . *.java  
       # Compile java file from directory
-      # A comment added to test branch changes
 
