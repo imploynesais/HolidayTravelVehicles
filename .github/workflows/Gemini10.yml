@@ -23,7 +23,7 @@ jobs:
 
     - name: Compile Java
       run: |
-        cd HolidayTravelVehicles 
+        cd src 
         javac -d . *.java
       # Compile java file from directory
 
