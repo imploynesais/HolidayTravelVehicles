@@ -1,15 +1,19 @@
-Name: SonarCloud workflow
-SchemaVersion: "1.0"
-
-Triggers:
-  - Type: Push
-Actions:
-  SonarCloudScan:
-    Identifier: sonar/sonarcloud-scan@v1.0.7
-    Inputs:
-      Sources:
-        - WorkflowSource
-    Compute:
-      Type: EC2
-    Configuration:
-      SonarToken: ${Secrets.SONAR_TOKEN}
+name: SonarCloud workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarqube:
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
